@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailManager - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="toggle-btn" onclick="toggleMenu()">☰</div>
+
+            <div class="logo">
+                <span class="logo-text">💅NailManager</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li class="ativo"><a href="dashboard.html">🏠 <span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="agenda.html">📅 <span class="menu-text">Agenda</span></a></li>
+                    <li><a href="index.html">👤 <span class="menu-text">Clientes</span></a></li>
+                    <li><a href="profissionais.html">🧑‍🔧 <span class="menu-text">Profissionais</span></a></li>
+                    <li><a href="servicos.html">💅 <span class="menu-text">Serviços</span></a></li>
+                    <li><a href="estoque.html">📦 <span class="menu-text">Estoque</span></a></li>
+                    <li><a href="financeiro.html">💰 <span class="menu-text">Financeiro</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+        <div class="topo-dashboard">
+            <div>
+                <h2>Olá! 👋</h2>
+                <p>Bem-vinda ao seu dashboard</p>
+            </div>
+        </div>
+
+        <div class="cards-dashboard">
+            <div class="card-resumo">
+                <p>Total de Clientes</p>
+                <h3 id="totalClientes">0</h3>
+            </div>
+
+            <div class="card-resumo">
+                <p>Agendamentos Hoje</p>
+                <h3 id="agendaHoje">0</h3>
+            </div>
+
+            <div class="card-resumo">
+                <p>Faturamento do Mês</p>
+                <h3 id="faturamentoMes">R$ 0,00</h3>
+            </div>
+
+            <div class="card-resumo">
+                <p>Serviços Realizados</p>
+                <h3 id="servicosRealizados">0</h3>
+            </div>
+        </div>
+
+        <div class="grid-dashboard">
+            <div class="card-grafico">
+                <h3>Faturamento Mensal</h3>
+                <canvas id="graficoFaturamento"></canvas>
+            </div>
+
+            <div class="card-grafico">
+                <h3>Serviços Mais Realizados</h3>
+                <canvas id="graficoServicos"></canvas>
+            </div>
+
+            <div class="card-grafico">
+                <h3>Agendamentos de Hoje</h3>
+                <div id="agendaDoDia"></div>
+            </div>
+
+            <div class="card-grafico">
+                <h3>Horários Mais Procurados</h3>
+                <canvas id="graficoHorarios"></canvas>
+            </div>
+
+            <div class="card-grafico">
+                <h3>Alertas</h3>
+                <div id="alertas"></div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

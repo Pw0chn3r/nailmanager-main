@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailManager - Profissionais</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="toggle-btn" onclick="toggleMenu()">☰</div>
+
+            <div class="logo">
+                <span class="logo-text">💅NailManager</span>
+            </div>
+
+     <nav>
+    <ul>
+        <li><a href="dashboard.html">🏠 <span class="menu-text">Dashboard</span></a></li>
+       <li><a href="agenda.html">📅 <span class="menu-text">Agenda</span></a></li>
+        <li><a href="index.html">👤 <span class="menu-text">Clientes</span></a></li>
+        <li class="ativo"><a href="profissionais.html">🧑‍🔧 <span class="menu-text">Profissionais</span></a></li>
+        <li><a href="servicos.html">💅 <span class="menu-text">Serviços</span></a></li>
+        <li><a href="estoque.html">📦 <span class="menu-text">Estoque</span></a></li>
+        <li><a href="financeiro.html">💰 <span class="menu-text">Financeiro</span></a></li>
+    </ul>
+</nav>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <div class="topo-profissionais">
+            <h2>Profissionais <span id="totalProfissionais">0</span></h2>
+
+            <div class="acoes-topo">
+                <input type="text" id="busca" placeholder="Buscar profissional..." onkeyup="buscarProfissional()">
+                <button onclick="abrirFormulario()">+ Adicionar Profissional</button>
+            </div>
+        </div>
+
+        <div class="card-tabela">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>CPF</th>
+                        <th>Especialidade</th>
+                        <th>Nascimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="listaProfissionais"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- PAINEL DIREITO -->
+    <aside class="painel-direito" id="painelDireito">
+
+        <div class="header-painel">
+            <h3>Novo Profissional</h3>
+            <span onclick="fecharFormulario()">✖</span>
+        </div>
+
+        <form id="formProfissional" onsubmit="cadastrarProfissional(event)">
+            <input type="text" id="nome" placeholder="Nome completo" required>
+            <input type="text" id="telefone" placeholder="Telefone" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="cpf" placeholder="CPF" required>
+            <select id="servico_id" required>
+                 <option value="">Selecione o serviço</option>
+            </select>
+            <input type="date" id="nascimento" required>
+
+            <button type="submit">Salvar Profissional</button>
+        </form>
+
+    </aside>
+
+</div>
+
+<div class="modal-confirmacao" id="modalConfirmacao">
+    <div class="modal-caixa">
+        <h3>Confirmar exclusão</h3>
+        <p id="modalMensagem">Deseja realmente excluir?</p>
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar-modal" onclick="fecharModal()">Cancelar</button>
+            <button class="btn-confirmar-modal" id="btnConfirmarModal">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<script src="profissionais.js"></script>
+</body>
+</html>

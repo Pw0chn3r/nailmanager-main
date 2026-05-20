@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailManager - Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="toggle-btn" onclick="toggleMenu()">☰</div>
+
+            <div class="logo">
+                <span class="logo-text">💅NailManager</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">🏠 <span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="agenda.html">📅 <span class="menu-text">Agenda</span></a></li>
+                    <li><a href="index.html">👤 <span class="menu-text">Clientes</span></a></li>
+                    <li><a href="profissionais.html">🧑‍🔧 <span class="menu-text">Profissionais</span></a></li>
+                    <li><a href="servicos.html">💅 <span class="menu-text">Serviços</span></a></li>
+                    <li class="ativo"><a href="estoque.html">📦 <span class="menu-text">Estoque</span></a></li>
+                    <li><a href="financeiro.html">💰 <span class="menu-text">Financeiro</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <div class="topo-estoque">
+            <h2>Estoque <span id="totalProdutos">0</span></h2>
+
+            <div class="acoes-topo">
+                <input type="text" id="busca" placeholder="Buscar produto..." onkeyup="buscarProduto()">
+                <button onclick="abrirFormulario()">+ Adicionar Produto</button>
+            </div>
+        </div>
+
+        <div class="card-tabela">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Marca</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Validade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="listaProdutos"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- PAINEL DIREITO -->
+    <aside class="painel-direito" id="painelDireito">
+        <div class="header-painel">
+            <h3>Novo Produto</h3>
+            <span onclick="fecharFormulario()">✖</span>
+        </div>
+
+        <form id="formEstoque" onsubmit="cadastrarProduto(event)">
+            <input type="text" id="nome" placeholder="Nome do produto" required>
+            <input type="text" id="categoria" placeholder="Categoria" required>
+            <input type="text" id="marca" placeholder="Marca" required>
+            <input type="number" id="quantidade" placeholder="Quantidade em estoque" required>
+            <input type="number" id="preco_compra" placeholder="Preço de compra" step="0.01" required>
+            <input type="number" id="quantidade_minima" placeholder="Quantidade mínima" required>
+            <input type="date" id="validade">
+
+            <select id="status" required>
+                <option value="">Selecione o status</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+            </select>
+
+            <textarea id="descricao" placeholder="Descrição / observações"></textarea>
+
+            <button type="submit">Salvar Produto</button>
+        </form>
+    </aside>
+
+</div>
+
+<div class="modal-confirmacao" id="modalConfirmacao">
+    <div class="modal-caixa">
+        <h3>Confirmar exclusão</h3>
+        <p id="modalMensagem">Deseja realmente excluir?</p>
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar-modal" onclick="fecharModal()">Cancelar</button>
+            <button class="btn-confirmar-modal" id="btnConfirmarModal">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<script src="estoque.js"></script>
+</body>
+</html>

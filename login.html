@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailManager - Acesso</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-login">
+
+    <div class="card-login">
+
+        <div class="logo-login">
+            💅
+            <h1>NailManager</h1>
+            <p>Gerencie sua esmalteria com praticidade e beleza</p>
+        </div>
+
+        <div class="botoes-iniciais" id="botoesIniciais">
+            <button onclick="mostrarLogin()">Entrar</button>
+            <button class="btn-secundario" onclick="mostrarCadastro()">Criar conta</button>
+        </div>
+
+        <form id="formLogin" class="formulario oculto" onsubmit="entrar(event)">
+            <h2>Login</h2>
+
+            <input type="email" id="emailLogin" placeholder="Email" required>
+            <input type="password" id="senhaLogin" placeholder="Senha" required>
+
+            <button type="submit">Entrar</button>
+
+            <p onclick="voltarInicio()">Voltar</p>
+        </form>
+
+        <form id="formCadastro" class="formulario oculto" onsubmit="cadastrar(event)">
+            <h2>Cadastro</h2>
+
+            <input type="text" id="nomeCadastro" placeholder="Nome completo" required>
+            <input type="email" id="emailCadastro" placeholder="Email" required>
+            <input type="password" id="senhaCadastro" placeholder="Senha" required>
+
+            <button type="submit">Cadastrar</button>
+
+            <p onclick="voltarInicio()">Voltar</p>
+        </form>
+
+    </div>
+
+</div>
+
+<div class="modal-confirmacao" id="modalConfirmacao">
+    <div class="modal-caixa">
+        <h3>Aviso</h3>
+
+        <p id="modalMensagem"></p>
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar-modal" onclick="fecharModal()">
+                Cancelar
+            </button>
+
+            <button class="btn-confirmar-modal" id="btnConfirmarModal">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NailManager - Financeiro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="toggle-btn" onclick="toggleMenu()">☰</div>
+            <div class="logo"><span class="logo-text">💅NailManager</span></div>
+
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">🏠 <span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="agenda.html">📅 <span class="menu-text">Agenda</span></a></li>
+                    <li><a href="index.html">👤 <span class="menu-text">Clientes</span></a></li>
+                    <li><a href="profissionais.html">🧑‍🔧 <span class="menu-text">Profissionais</span></a></li>
+                    <li><a href="servicos.html">💅 <span class="menu-text">Serviços</span></a></li>
+                    <li><a href="estoque.html">📦 <span class="menu-text">Estoque</span></a></li>
+                    <li class="ativo"><a href="financeiro.html">💰 <span class="menu-text">Financeiro</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="conteudo">
+
+        <div class="topo-financeiro">
+            <h2>Financeiro</h2>
+
+            <div class="abas-agenda">
+                <button class="aba ativa" onclick="mostrarAbaFinanceiro('receber')">Contas a receber</button>
+                <button class="aba" onclick="mostrarAbaFinanceiro('recebidos')">Recebidos e Comissões</button>
+                <button class="aba" onclick="mostrarAbaFinanceiro('relatorios')">Relatórios</button>
+            </div>
+        </div>
+
+        <section id="abaReceber">
+            <div class="card-tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Profissional</th>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th>Status Agenda</th>
+                            <th>Status Financeiro</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaReceber"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="abaRecebidos" class="oculto">
+            <div class="card-tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Profissional</th>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Comissão</th>
+                            <th>Empresa</th>
+                            <th>Pagamento</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaRecebidos"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="abaRelatorios" class="oculto">
+            <div class="cards-relatorio">
+                <div class="card-resumo">
+                    <h3 id="totalRecebido">R$ 0,00</h3>
+                    <p>Total recebido</p>
+                </div>
+
+                <div class="card-resumo">
+                    <h3 id="totalReceber">R$ 0,00</h3>
+                    <p>Total a receber</p>
+                </div>
+
+                <div class="card-resumo">
+                    <h3 id="atendimentosPagos">0</h3>
+                    <p>Atendimentos pagos</p>
+                </div>
+
+                <div class="card-resumo">
+                    <h3 id="atendimentosPendentes">0</h3>
+                    <p>Pendentes</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <aside class="painel-direito" id="painelDireito">
+        <div class="header-painel">
+            <h3>Dar baixa</h3>
+            <span onclick="fecharFormulario()">✖</span>
+        </div>
+
+        <form id="formBaixa" onsubmit="salvarBaixa(event)">
+            <input type="hidden" id="financeiro_id">
+
+            <select id="forma_pagamento" required>
+                <option value="">Forma de pagamento</option>
+                <option value="Pix">Pix</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Cartão de débito">Cartão de débito</option>
+                <option value="Cartão de crédito">Cartão de crédito</option>
+            </select>
+
+            <select id="status_financeiro" required>
+                <option value="Pago">Pago</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+
+            <input type="date" id="data_pagamento" required>
+            <textarea id="observacoes" placeholder="Observações"></textarea>
+
+            <button type="submit">Salvar baixa</button>
+        </form>
+    </aside>
+
+</div>
+
+<script src="financeiro.js"></script>
+</body>
+</html>

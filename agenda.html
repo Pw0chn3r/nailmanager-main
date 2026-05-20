@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailManager - Agenda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="toggle-btn" onclick="toggleMenu()">☰</div>
+
+            <div class="logo">
+                <span class="logo-text">💅NailManager</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">🏠 <span class="menu-text">Dashboard</span></a></li>
+                    <li class="ativo"><a href="agenda.html">📅 <span class="menu-text">Agenda</span></a></li>
+                    <li><a href="index.html">👤 <span class="menu-text">Clientes</span></a></li>
+                    <li><a href="profissionais.html">🧑‍🔧 <span class="menu-text">Profissionais</span></a></li>
+                    <li><a href="servicos.html">💅 <span class="menu-text">Serviços</span></a></li>
+                    <li><a href="estoque.html">📦 <span class="menu-text">Estoque</span></a></li>
+                    <li><a href="financeiro.html">💰 <span class="menu-text">Financeiro</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="conteudo">
+
+        <div class="topo-agenda">
+            <h2>Agenda <span id="totalAgendamentos">0</span></h2>
+
+            <div class="abas-agenda">
+                <button class="aba ativa" onclick="mostrarAba('cadastro')">Cadastrar</button>
+                <button class="aba" onclick="mostrarAba('consulta')">Consulta</button>
+            </div>
+        </div>
+
+        <section id="abaCadastro">
+            <div class="acoes-topo">
+                <input type="text" id="busca" placeholder="Buscar agendamento..." onkeyup="buscarAgendamento()">
+                <button onclick="abrirFormulario()">+ Adicionar Agendamento</button>
+            </div>
+
+            <div class="card-tabela agenda-tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Profissional</th>
+                            <th>Serviço</th>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaAgendamentos"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="abaConsulta" class="oculto">
+            <div class="consulta-agenda">
+
+                <div class="profissionais-consulta">
+                    <h3>Profissionais</h3>
+                    <div id="listaProfissionaisConsulta"></div>
+                </div>
+
+                <div class="agenda-consulta-area">
+                    <div class="filtros-consulta">
+                        <input type="text" id="filtroCliente" placeholder="Filtrar por cliente" onkeyup="filtrarConsulta()">
+                        <input type="text" id="filtroServico" placeholder="Filtrar por serviço" onkeyup="filtrarConsulta()">
+                        <input type="date" id="filtroData" onchange="filtrarConsulta()">
+                    </div>
+
+                    <div class="cards-agenda" id="cardsAgenda"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <aside class="painel-direito" id="painelDireito">
+
+        <div class="header-painel">
+            <h3>Novo Agendamento</h3>
+            <span onclick="fecharFormulario()">✖</span>
+        </div>
+
+        <form id="formAgenda" onsubmit="cadastrarAgendamento(event)">
+
+            <select id="cliente_id" required>
+                <option value="">Selecione o cliente</option>
+            </select>
+
+            <select id="servico_id" required onchange="filtrarProfissionaisPorServico()">
+                <option value="">Selecione o serviço</option>
+            </select>
+
+            <select id="profissional_id" required>
+                <option value="">Selecione o profissional</option>
+            </select>
+
+            <input type="date" id="data" required>
+            <input type="time" id="horario" required>
+
+            <select id="status" required>
+                <option value="">Selecione o status</option>
+                <option value="Agendado">Agendado</option>
+                <option value="Confirmado">Confirmado</option>
+                <option value="Concluído">Concluído</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+
+            <textarea id="observacoes" placeholder="Observações"></textarea>
+
+            <button type="submit">Salvar Agendamento</button>
+
+        </form>
+
+    </aside>
+
+</div>
+
+<div class="modal-confirmacao" id="modalConfirmacao">
+    <div class="modal-caixa">
+        <h3>Confirmar exclusão</h3>
+        <p id="modalMensagem">Deseja realmente excluir?</p>
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar-modal" onclick="fecharModal()">Cancelar</button>
+            <button class="btn-confirmar-modal" id="btnConfirmarModal">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<script src="agenda.js"></script>
+</body>
+</html>
