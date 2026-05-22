@@ -78,10 +78,32 @@ function atualizarTabela(produtos) {
                 <td>${produto.nome}</td>
                 <td>${produto.categoria}</td>
                 <td>${produto.marca}</td>
-                <td>${produto.quantidade}</td>
+                <td>
+                    <input 
+                        type="number"
+                        class="input-quantidade ${
+                            produto.quantidade <= produto.quantidade_minima
+                                ? 'estoque-baixo'
+                                : 'estoque-ok'
+                        }"
+                        value="${produto.quantidade}"
+                        min="0"
+                        onchange="alterarQuantidadeProduto(
+                            ${produto.id},
+                            this.value,
+                            ${produto.quantidade_minima},
+                            this
+                        )"
+                    >
+                </td>
                 <td>R$ ${formatarPreco(produto.preco_compra)}</td>
                 <td>${formatarData(produto.validade)}</td>
                 <td>${produto.status}</td>
+                <td>
+                    <button class="btn-ver" onclick="abrirModalDescricao('${produto.descricao || "Sem descrição"}')">
+                        Ver
+                    </button>
+                </td>
                 <td>
                     <button class="btn-excluir" onclick="removerProduto(${produto.id})">
                         Excluir
@@ -220,3 +242,79 @@ function fecharModal() {
 
 // CARREGAR AO ABRIR
 document.addEventListener("DOMContentLoaded", carregarProdutos);
+
+async function alterarQuantidadeProduto(
+    id,
+    novaQuantidade,
+    quantidadeMinima,
+    input
+) {
+
+    try {
+
+        const respostaProduto = await fetch(`${API_URL}/${id}`);
+        const produto = await respostaProduto.json();
+
+        const produtoAtualizado = {
+            nome: produto.nome,
+            categoria: produto.categoria,
+            marca: produto.marca,
+            quantidade: novaQuantidade,
+            preco_compra: produto.preco_compra,
+            quantidade_minima: produto.quantidade_minima,
+            validade: produto.validade
+                ? produto.validade.split("T")[0]
+                : "",
+            status: produto.status,
+            descricao: produto.descricao || ""
+        };
+
+        const resposta = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(produtoAtualizado)
+        });
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao alterar quantidade");
+        }
+
+        // REMOVE CLASSES
+        input.classList.remove("estoque-ok", "estoque-baixo");
+
+        // ALTERA COR
+        if (Number(novaQuantidade) <= Number(quantidadeMinima)) {
+            input.classList.add("estoque-baixo");
+        } else {
+            input.classList.add("estoque-ok");
+        }
+
+    } catch (erro) {
+        console.error("Erro:", erro);
+        abrirModalAviso("Erro ao alterar quantidade.");
+    }
+}
+
+function abrirModalDescricao(texto) {
+    const titulo = document.querySelector(".modal-caixa h3");
+    const mensagemModal = document.getElementById("modalMensagem");
+    const modal = document.getElementById("modalConfirmacao");
+    const botaoConfirmar = document.getElementById("btnConfirmarModal");
+    const botaoCancelar = document.querySelector(".btn-cancelar-modal");
+
+    titulo.innerText = "Descrição do produto";
+    mensagemModal.innerText = texto;
+
+    botaoConfirmar.innerText = "OK";
+    botaoCancelar.style.display = "none";
+
+    modal.classList.add("ativo");
+
+    botaoConfirmar.onclick = () => {
+        botaoCancelar.style.display = "inline-block";
+        botaoConfirmar.innerText = "Excluir";
+        fecharModal();
+    };
+}

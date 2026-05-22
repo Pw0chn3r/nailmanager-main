@@ -148,6 +148,16 @@ function atualizarTabela(agendamentos) {
     tabela.innerHTML = "";
 
     agendamentos.forEach(agendamento => {
+
+        const classeStatus =
+            agendamento.status === "Confirmado"
+                ? "status-confirmado"
+                : agendamento.status === "Concluído"
+                ? "status-concluído"
+                : agendamento.status === "Cancelado"
+                ? "status-cancelado"
+                : "status-agendado";
+
         tabela.innerHTML += `
             <tr>
                 <td>${agendamento.cliente}</td>
@@ -155,9 +165,47 @@ function atualizarTabela(agendamentos) {
                 <td>${agendamento.servico}</td>
                 <td>${formatarData(agendamento.data)}</td>
                 <td>${formatarHorario(agendamento.horario)}</td>
-                <td>${agendamento.status}</td>
                 <td>
-                    <button class="btn-excluir" onclick="removerAgendamento(${agendamento.id})">
+                    <button 
+                        class="btn-ver"
+                        onclick="abrirModalObservacao('${agendamento.observacoes || "Sem observações"}')"
+                    >
+                        Ver
+                    </button>
+                </td>
+
+                <td>
+                    <select 
+                        class="select-status ${classeStatus}"
+                        onchange="alterarStatusAgendamento(${agendamento.id}, this)"
+                    >
+
+                        <option value="Agendado"
+                            ${agendamento.status === "Agendado" ? "selected" : ""}>
+                            Agendado
+                        </option>
+
+                        <option value="Confirmado"
+                            ${agendamento.status === "Confirmado" ? "selected" : ""}>
+                            Confirmado
+                        </option>
+
+                        <option value="Concluído"
+                            ${agendamento.status === "Concluído" ? "selected" : ""}>
+                            Concluído
+                        </option>
+
+                        <option value="Cancelado"
+                            ${agendamento.status === "Cancelado" ? "selected" : ""}>
+                            Cancelado
+                        </option>
+
+                    </select>
+                </td>
+
+                <td>
+                    <button class="btn-excluir"
+                        onclick="removerAgendamento(${agendamento.id})">
                         Excluir
                     </button>
                 </td>
@@ -165,7 +213,8 @@ function atualizarTabela(agendamentos) {
         `;
     });
 
-    document.getElementById("totalAgendamentos").innerText = agendamentos.length;
+    document.getElementById("totalAgendamentos").innerText =
+        agendamentos.length;
 }
 
 function selecionarProfissional(id, elemento) {
@@ -387,4 +436,90 @@ function fecharModal() {
     botaoConfirmar.innerText = "Excluir";
 
     acaoConfirmada = null;
+}
+
+async function alterarStatusAgendamento(id, select) {
+
+    const novoStatus = select.value;
+
+    try {
+
+        const agendamento = agendamentosGlobais.find(
+            item => item.id === id
+        );
+
+        if (!agendamento) {
+            abrirModalAviso("Agendamento não encontrado.");
+            return;
+        }
+
+        const dadosAtualizados = {
+            cliente_id: agendamento.cliente_id,
+            profissional_id: agendamento.profissional_id,
+            servico_id: agendamento.servico_id,
+            data: agendamento.data.split("T")[0],
+            horario: agendamento.horario,
+            status: novoStatus,
+            observacoes: agendamento.observacoes || ""
+        };
+
+        const resposta = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dadosAtualizados)
+        });
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao alterar status");
+        }
+
+        select.classList.remove(
+            "status-agendado",
+            "status-confirmado",
+            "status-concluído",
+            "status-cancelado"
+        );
+
+        select.classList.add(
+            `status-${novoStatus.toLowerCase()}`
+        );
+
+    } catch (erro) {
+        console.error("Erro:", erro);
+        abrirModalAviso("Erro ao alterar status.");
+    }
+}
+
+function abrirModalObservacao(texto) {
+
+    const titulo = document.querySelector(".modal-caixa h3");
+    const mensagemModal = document.getElementById("modalMensagem");
+    const modal = document.getElementById("modalConfirmacao");
+
+    const botaoConfirmar =
+        document.getElementById("btnConfirmarModal");
+
+    const botaoCancelar =
+        document.querySelector(".btn-cancelar-modal");
+
+    titulo.innerText = "Observações do agendamento";
+
+    mensagemModal.innerText = texto;
+
+    botaoConfirmar.innerText = "OK";
+
+    botaoCancelar.style.display = "none";
+
+    modal.classList.add("ativo");
+
+    botaoConfirmar.onclick = () => {
+
+        botaoCancelar.style.display = "inline-block";
+
+        botaoConfirmar.innerText = "Excluir";
+
+        fecharModal();
+    };
 }

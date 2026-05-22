@@ -80,6 +80,11 @@ function atualizarTabela(servicos) {
                 <td>${servico.duracao} min</td>
                 <td>${servico.status}</td>
                 <td>
+    <button class="btn-ver" onclick="abrirModalDescricao('${servico.descricao || "Sem descrição"}')">
+        Ver
+    </button>
+</td>
+                <td>
                     <button class="btn-excluir" onclick="removerServico(${servico.id})">
                         Excluir
                     </button>
@@ -202,3 +207,25 @@ function fecharModal() {
 
 // CARREGAR AO ABRIR
 document.addEventListener("DOMContentLoaded", carregarServicos);
+
+function abrirModalDescricao(texto) {
+    const titulo = document.querySelector(".modal-caixa h3");
+    const mensagemModal = document.getElementById("modalMensagem");
+    const modal = document.getElementById("modalConfirmacao");
+    const botaoConfirmar = document.getElementById("btnConfirmarModal");
+    const botaoCancelar = document.querySelector(".btn-cancelar-modal");
+
+    titulo.innerText = "Descrição do serviço";
+    mensagemModal.innerText = texto;
+
+    botaoConfirmar.innerText = "OK";
+    botaoCancelar.style.display = "none";
+
+    modal.classList.add("ativo");
+
+    botaoConfirmar.onclick = () => {
+        botaoCancelar.style.display = "inline-block";
+        botaoConfirmar.innerText = "Excluir";
+        fecharModal();
+    };
+}
