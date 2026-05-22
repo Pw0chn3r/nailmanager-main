@@ -78,7 +78,28 @@ function atualizarTabela(servicos) {
                 <td>R$ ${formatarPreco(servico.preco)}</td>
                 <td>${servico.comissao}%</td>
                 <td>${servico.duracao} min</td>
-                <td>${servico.status}</td>
+                <td>
+                <select 
+                    class="select-status ${
+                        servico.status === 'Ativo'
+                            ? 'status-confirmado'
+                            : 'status-cancelado'
+                    }"
+                    onchange="alterarStatusServico(${servico.id}, this)"
+                >
+
+                    <option value="Ativo"
+                        ${servico.status === "Ativo" ? "selected" : ""}>
+                        Ativo
+                    </option>
+
+                    <option value="Inativo"
+                        ${servico.status === "Inativo" ? "selected" : ""}>
+                        Inativo
+                    </option>
+
+                </select>
+            </td>
                 <td>
     <button class="btn-ver" onclick="abrirModalDescricao('${servico.descricao || "Sem descrição"}')">
         Ver
@@ -229,3 +250,77 @@ function abrirModalDescricao(texto) {
         fecharModal();
     };
 }
+
+async function alterarStatusServico(id, select) {
+
+    const novoStatus = select.value;
+
+    try {
+
+        const respostaServico = await fetch(`${API_URL}/${id}`);
+        const servico = await respostaServico.json();
+
+        const dadosAtualizados = {
+            nome: servico.nome,
+            preco: servico.preco,
+            comissao: servico.comissao,
+            duracao: servico.duracao,
+            categoria: servico.categoria,
+            descricao: servico.descricao || "",
+            status: novoStatus
+        };
+
+        const resposta = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dadosAtualizados)
+        });
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao alterar status");
+        }
+
+        select.classList.remove(
+            "status-confirmado",
+            "status-cancelado"
+        );
+
+        select.classList.add(
+            novoStatus === "Ativo"
+                ? "status-confirmado"
+                : "status-cancelado"
+        );
+
+    } catch (erro) {
+        console.error("Erro:", erro);
+        abrirModalAviso("Erro ao alterar status do serviço.");
+    }
+}
+
+// =========================
+// MODO ESCURO
+// =========================
+
+function alternarTema() {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("tema", "dark");
+    } else {
+        localStorage.setItem("tema", "light");
+    }
+}
+
+// CARREGAR TEMA SALVO
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const temaSalvo = localStorage.getItem("tema");
+
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark");
+    }
+});

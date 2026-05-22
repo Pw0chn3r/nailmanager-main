@@ -938,3 +938,231 @@ LOGIN / CADASTRO
 .btn-ver:hover{
     background:#e63e75;
 }
+
+/* STATUS FINANCEIRO */
+
+.badge-status{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+    font-family:'Poppins', sans-serif;
+}
+
+/* =========================
+MODO ESCURO MODERNO
+========================= */
+
+body.dark{
+    background:
+        radial-gradient(circle at top left, #1b3b73 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #09162e 0%, transparent 30%),
+        linear-gradient(135deg, #07111f, #0b1729);
+
+    color:#f5f5f5;
+}
+
+/* SIDEBAR */
+
+body.dark .sidebar{
+    background:rgba(10, 20, 40, 0.88);
+
+    backdrop-filter:blur(18px);
+
+    border-right:1px solid rgba(255,255,255,0.06);
+}
+
+body.dark .sidebar a{
+    color:#f5f5f5;
+}
+
+body.dark .sidebar li.ativo{
+    background:rgba(255,77,136,0.25);
+}
+
+body.dark .menu-text{
+    color:white;
+}
+
+/* CONTEÚDO */
+
+body.dark .conteudo{
+    background:transparent;
+}
+
+/* TODOS OS CARDS */
+
+body.dark .card,
+body.dark .card-grafico,
+body.dark .card-resumo,
+body.dark .painel-direito,
+body.dark .modal-caixa,
+body.dark .profissionais-consulta,
+body.dark .card-agendamento,
+body.dark .card-agendamento.agendado,
+body.dark .card-agendamento.confirmado,
+body.dark .card-agendamento.concluido,
+body.dark .card-agendamento.cancelado,
+body.dark .mensagem-vazia,
+body.dark .topo-dashboard,
+body.dark .card-financeiro,
+body.dark .card-servico,
+body.dark .card-cliente,
+body.dark .card-profissional,
+body.dark .card-estoque,
+body.dark table{
+
+    background:rgba(20, 30, 55, 0.78);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.35),
+        inset 0 1px 1px rgba(255,255,255,0.04);
+
+    color:white;
+}
+
+/* PROFISSIONAIS */
+
+body.dark .profissional-card{
+    background:transparent;
+    color:#f5f5f5;
+}
+
+body.dark .profissional-card:hover,
+body.dark .ativo-profissional{
+    background:rgba(255,77,136,0.25);
+}
+
+/* TEXTOS */
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark p,
+body.dark span,
+body.dark td,
+body.dark th,
+body.dark label,
+body.dark strong,
+body.dark small{
+    color:#f5f5f5;
+}
+
+body.dark .profissional-card strong,
+body.dark .profissional-card p,
+body.dark .info-card strong,
+body.dark .info-card span,
+body.dark .info-card small{
+    color:#f5f5f5;
+}
+
+/* TABELAS */
+
+body.dark table th{
+    background:rgba(255,255,255,0.03);
+    color:#ff7cab;
+}
+
+body.dark table td{
+    border-color:rgba(255,255,255,0.06);
+}
+
+/* INPUTS */
+
+body.dark input,
+body.dark select,
+body.dark textarea{
+
+    background:rgba(255,255,255,0.05);
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder{
+    color:#c9c9c9;
+}
+
+/* BOTÕES */
+
+body.dark button{
+    box-shadow:0 4px 20px rgba(255,77,136,0.25);
+}
+
+/* STATUS */
+
+body.dark .status-card{
+    background:rgba(255,255,255,0.10);
+    color:#f5f5f5;
+}
+
+body.dark .hora-card{
+    color:#ff4d88;
+}
+
+/* LOGO */
+
+body.dark .logo{
+    color:#ff5b93;
+}
+
+/* SCROLL */
+
+body.dark ::-webkit-scrollbar{
+    width:10px;
+}
+
+body.dark ::-webkit-scrollbar-thumb{
+    background:#ff4d88;
+    border-radius:20px;
+}
+
+/* REMOVER FUNDOS ESBRANQUIÇADOS */
+
+body.dark table,
+body.dark thead,
+body.dark tbody,
+body.dark tr,
+body.dark td,
+body.dark th{
+
+    background:transparent !important;
+}
+
+/* FUNDO PRINCIPAL DAS TABELAS */
+
+body.dark .tabela-container,
+body.dark .card-tabela,
+body.dark .tabela-financeiro,
+body.dark .tabela-agenda,
+body.dark .tabela-servicos,
+body.dark .tabela-clientes,
+body.dark .tabela-profissionais,
+body.dark .tabela-estoque,
+body.dark table{
+
+    background:rgba(20, 30, 55, 0.78) !important;
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+/* LINHAS */
+
+body.dark tr{
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+/* HOVER */
+
+body.dark tr:hover{
+    background:rgba(255,255,255,0.03) !important;
+}

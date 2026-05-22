@@ -56,8 +56,37 @@ async function carregarContasReceber() {
                 <td>${item.servico}</td>
                 <td>R$ ${formatarPreco(item.valor)}</td>
                 <td>${formatarData(item.data)}</td>
-                <td>${item.status_agenda}</td>
-                <td>${item.status_financeiro}</td>
+
+                <td>
+                    <span class="
+                        badge-status
+                        ${
+                            item.status_agenda === "Confirmado"
+                                ? "status-confirmado"
+                                : item.status_agenda === "Concluído"
+                                ? "status-concluído"
+                                : item.status_agenda === "Cancelado"
+                                ? "status-cancelado"
+                                : "status-agendado"
+                        }
+                    ">
+                        ${item.status_agenda}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="
+                        badge-status
+                        ${
+                            item.status_financeiro === "Pendente"
+                                ? "status-cancelado"
+                                : "status-confirmado"
+                        }
+                    ">
+                        ${item.status_financeiro}
+                    </span>
+                </td>
+
                 <td>
                     <button class="btn-baixa" onclick="abrirBaixa(${item.id})">
                         Dar baixa
@@ -146,3 +175,29 @@ function formatarData(dataISO) {
 }
 
 document.addEventListener("DOMContentLoaded", carregarFinanceiro);
+
+// =========================
+// MODO ESCURO
+// =========================
+
+function alternarTema() {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("tema", "dark");
+    } else {
+        localStorage.setItem("tema", "light");
+    }
+}
+
+// CARREGAR TEMA SALVO
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const temaSalvo = localStorage.getItem("tema");
+
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark");
+    }
+});

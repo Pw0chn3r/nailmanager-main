@@ -204,3 +204,29 @@ function fecharModal() {
 
 // CARREGAR AO ABRIR
 document.addEventListener("DOMContentLoaded", carregarClientes);
+
+// =========================
+// MODO ESCURO
+// =========================
+
+function alternarTema() {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("tema", "dark");
+    } else {
+        localStorage.setItem("tema", "light");
+    }
+}
+
+// CARREGAR TEMA SALVO
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const temaSalvo = localStorage.getItem("tema");
+
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark");
+    }
+});
