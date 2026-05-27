@@ -860,27 +860,31 @@ LOGIN / CADASTRO
 }
 
 /* AGENDADO */
+
 .status-agendado{
-    background:#fff3cd;
-    color:#856404;
+    background:#5c4b14;
+    color:#ffe082;
 }
 
 /* CONFIRMADO */
+
 .status-confirmado{
-    background:#d4edda;
-    color:#155724;
+    background:#2c7243;
+    color:#b9f6ca;
 }
 
 /* CONCLUÍDO */
+
 .status-concluído{
-    background:#d1ecf1;
-    color:#0c5460;
+    background:#27738f;
+    color:#b3e5fc;
 }
 
 /* CANCELADO */
+
 .status-cancelado{
-    background:#f8d7da;
-    color:#721c24;
+    background:#820b21;
+    color:#ffcdd2;
 }
 
 .input-quantidade{
@@ -1165,4 +1169,93 @@ body.dark tr{
 
 body.dark tr:hover{
     background:rgba(255,255,255,0.03) !important;
+}
+
+.card-perfil{
+    background:white;
+    width:420px;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.10);
+    text-align:center;
+}
+
+.avatar-perfil{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#ff4d88;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+    font-weight:700;
+    margin:0 auto 18px;
+}
+
+.card-perfil h3{
+    font-size:24px;
+    color:#333;
+    margin-bottom:5px;
+}
+
+.card-perfil p{
+    color:#777;
+    margin-bottom:25px;
+}
+
+.dados-perfil{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.dados-perfil div{
+    background:#f8f8f8;
+    padding:14px;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.dados-perfil strong{
+    color:#333;
+}
+
+.dados-perfil span{
+    color:#666;
+}
+
+.btn-sair{
+    background:#ff5c5c;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    width:100%;
+}
+
+.btn-sair:hover{
+    background:#e04848;
+}
+
+/* PERFIL NO MODO ESCURO */
+
+body.dark .card-perfil,
+body.dark .dados-perfil div{
+    background:rgba(20, 30, 55, 0.78);
+    color:white;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+body.dark .card-perfil h3,
+body.dark .card-perfil p,
+body.dark .dados-perfil strong,
+body.dark .dados-perfil span{
+    color:white;
 }
